@@ -6,8 +6,11 @@ from selenium.webdriver.chrome.options import Options
 
 def login():
     print("Logging into stackoverflow.com")
-    chrome_location = os.environ['GOOGLE_CHROME_BIN']
+    print("Printing ... ")
+    chrome_location = os.environ.get('GOOGLE_CHROME_BIN')
     print(chrome_location)
+    chrome_shim = os.environ.get('GOOGLE_CHROME_SHIM')
+    print(chrome_shim)
     chrome_options = Options()
     chrome_options.binary_location = chrome_location
     chrome_options.add_argument('--headless')
