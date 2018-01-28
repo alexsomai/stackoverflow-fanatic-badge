@@ -20,7 +20,9 @@ def login():
     driver = webdriver.Chrome(executable_path=os.environ['CHROMEDRIVER_PATH'], chrome_options=chrome_options)
     # driver = webdriver.Chrome()
     try:
+        print("Initialized driver")
         driver.get("https://stackoverflow.com")
+        print("Got on SO page")
 
         driver.find_element_by_link_text("Log In").click()
 
