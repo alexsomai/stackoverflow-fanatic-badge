@@ -6,9 +6,9 @@ from selenium.webdriver.chrome.options import Options
 
 def login():
     print("Logging into stackoverflow.com")
-    chrome_options = Options()
     chrome_location = os.environ['GOOGLE_CHROME_BIN']
     print(chrome_location)
+    chrome_options = Options()
     chrome_options.binary_location = chrome_location
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
