@@ -3,6 +3,8 @@ import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+import sendgrid_helper
+
 
 def login():
     print("Logging into stackoverflow.com")
@@ -24,10 +26,15 @@ def login():
 
         elem = driver.find_element_by_class_name("mini-avatar")
         assert os.environ['STACK_OVERFLOW_DISPLAY_NAME'] in elem.text
-        print("Logged into stackoverflow.com and accessed profile page.")
+
+        message = "Logged into stackoverflow.com and accessed profile page."
+        print(message)
+        sendgrid_helper.send_mail(message)
 
     except Exception as e:
-        print("An error occurred while trying to access stackoverflow.com", e)
+        message = "An error occurred while trying to access stackoverflow.com"
+        print(message, e)
+        sendgrid_helper.send_mail(message)
 
     finally:
         driver.close()
