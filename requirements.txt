@@ -2,3 +2,4 @@ APScheduler==3.0.0
 requests==2.18.4
 selenium==3.8.1
 sendgrid==5.3.0
+requests_oauthlib==0.8.0
