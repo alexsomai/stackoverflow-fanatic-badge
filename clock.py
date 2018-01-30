@@ -4,12 +4,14 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 import stack_exchange_api
 import stack_overflow_page
+import sendgrid_email_helper
 
 schedule = BlockingScheduler()
 
 
 @schedule.scheduled_job('interval', hours=1)
 def access_stack_overflow_page():
+    sendgrid_email_helper.send_mail()
     stack_overflow_page.login()
 
 
