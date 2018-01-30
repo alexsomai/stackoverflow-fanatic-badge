@@ -6,7 +6,7 @@ from sendgrid.helpers.mail import *
 def send_mail(content):
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
     from_email = Email("heroku-stackoverflow-fanatic-badge@heroku.com")
-    to_email = Email("alexsomai30@gmail.com")
+    to_email = Email(os.environ.get('STACK_OVERFLOW_EMAIL'))
     content = Content("text/plain", content)
     subject = "Mail from Heroku stackoverflow-fanatic-badge app"
     body = Mail(from_email, subject, to_email, content)
