@@ -23,7 +23,7 @@ def access_stack_overflow_api():
 
     now = datetime.now()
     delta_hours = 12
-    if last_access_date < now - timedelta(minutes=delta_hours):
+    if last_access_date < now - timedelta(hours=delta_hours):
         message = "You haven't logged in for at least " + str(delta_hours) + " hours! \n " + \
                   "Access stackoverflow.com to save your login streak"
         print("ERROR!\n" + message)
