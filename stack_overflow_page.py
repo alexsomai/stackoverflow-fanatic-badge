@@ -29,12 +29,12 @@ def login():
 
         message = "Logged into stackoverflow.com and accessed profile page."
         print(message)
-        sendgrid_helper.send_mail(message)
+        sendgrid_helper.send_mail("Info successful login mail", message)
 
     except Exception as e:
-        message = "An error occurred while trying to access stackoverflow.com"
+        message = "An error occurred while trying to access stackoverflow.com!"
         print(message, e)
-        sendgrid_helper.send_mail(message)
+        sendgrid_helper.send_mail("Error at login!", message + str(e))
 
     finally:
         driver.close()
