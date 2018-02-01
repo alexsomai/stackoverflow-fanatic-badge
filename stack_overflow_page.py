@@ -26,10 +26,7 @@ def login():
 
         elem = driver.find_element_by_class_name("mini-avatar")
         assert os.environ['STACK_OVERFLOW_DISPLAY_NAME'] in elem.text
-
-        message = "Logged into stackoverflow.com and accessed profile page."
-        print(message)
-        sendgrid_helper.send_mail("Info successful login mail", message)
+        print("Logged into stackoverflow.com and accessed profile page")
 
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"
