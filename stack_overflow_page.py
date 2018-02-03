@@ -6,10 +6,11 @@ from selenium.webdriver.chrome.options import Options
 
 def login():
     print("Logging into stackoverflow.com")
-    chrome_location = os.environ.get('GOOGLE_CHROME_SHIM')
+
     chrome_options = Options()
-    chrome_options.binary_location = chrome_location
+    chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_SHIM')
     driver = webdriver.Chrome(chrome_options=chrome_options)
+
     try:
         driver.get("https://stackoverflow.com")
 
