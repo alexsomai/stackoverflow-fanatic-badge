@@ -6,14 +6,14 @@ from requests_oauthlib import OAuth2Session
 
 
 def get_authorization_url():
-    client_id = '11693'
+    client_id = os.environ['STACK_EXCHANGE_CLIENT_ID']
     redirect_uri = 'https://stackexchange.com/oauth/login_success'
     scope = 'no_expiry'
 
     oauth = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
     authorization_url, state = oauth.authorization_url('https://stackexchange.com/oauth/dialog')
 
-    print("Authorization URL is:", authorization_url)
+    print("Access the following URL to obtain the access token:", authorization_url)
     return authorization_url
 
 
@@ -32,4 +32,5 @@ def get_user_details():
     return json
 
 
-get_user_details()
+if __name__ == "__main__":
+    get_authorization_url()
