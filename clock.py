@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 import sendgrid_helper
@@ -16,14 +14,8 @@ def access_stack_overflow_page():
 
 @schedule.scheduled_job('interval', hours=1)
 def access_stack_overflow_api():
-    user_details = stack_exchange_api.get_user_details()
-    last_access_date_timestamp = user_details['items'][0]['last_access_date']
-
-    last_access_date = datetime.fromtimestamp(last_access_date_timestamp)
-
-    now = datetime.now()
     delta_hours = 12
-    if last_access_date < now - timedelta(hours=delta_hours):
+    if stack_exchange_api.have_logged_in(12) is False:
         message = "You haven't logged in for at least " + str(delta_hours) + " hours! \n " + \
                   "Access stackoverflow.com to save your login streak"
         print("ERROR!\n" + message)
