@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timedelta
 from pprint import pprint
 
 import requests
@@ -32,5 +33,21 @@ def get_user_details():
     return json
 
 
+def have_logged_in(delta_hours):
+    """
+    Check whether the user identified by the OS environment variables have logged in on the Stack Overflow site
+    for the last delta_hours
+    :param delta_hours: <int> the timedelta expressed in hours to verify since the user have logged in
+    :return: <bool> True if the user have logged in the last delta_hours, False otherwise
+    """
+    user_details = get_user_details()
+    last_access_date_timestamp = user_details['items'][0]['last_access_date']
+
+    last_access_date = datetime.fromtimestamp(last_access_date_timestamp)
+
+    now = datetime.now()
+    return last_access_date > now - timedelta(hours=delta_hours)
+
+
 if __name__ == "__main__":
-    get_authorization_url()
+    get_user_details()
