@@ -16,7 +16,7 @@ def login():
     try:
         driver.get("https://stackoverflow.com")
 
-        driver.find_element_by_link_text("Log In").click()
+        driver.find_element_by_link_text("Log in").click()
 
         driver.find_element_by_id("email").send_keys(os.environ['STACK_OVERFLOW_EMAIL'])
         driver.find_element_by_id("password").send_keys(os.environ['STACK_OVERFLOW_PASSWORD'])
