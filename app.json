@@ -1,0 +1,31 @@
+{
+  "name": "Stack Overflow fanatic badge",
+  "description": "Earn the fanatic badge on Stack Overflow, effortlessly",
+  "repository": "https://github.com/alexsomai/stackoverflow-fanatic-badge",
+  "keywords": [
+    "python",
+    "stack_overflow",
+    "fanatic_badge"
+  ],
+  "addons": [
+    {
+      "plan": "sendgrid:starter"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-chromedriver.git"
+    }
+  ],
+  "formation": {
+    "clock": {
+      "quantity": 1
+    }
+  }
+}
