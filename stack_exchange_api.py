@@ -1,14 +1,18 @@
+import logging
 import os
 from datetime import datetime, timedelta
 from pprint import pprint
 
 import requests
-import logging
 from requests_oauthlib import OAuth2Session
 
 
 def get_authorization_url():
-    client_id = os.environ['STACK_EXCHANGE_CLIENT_ID']
+    client_id = os.environ.get('STACK_EXCHANGE_CLIENT_ID')
+    if client_id is None:
+        logging.warning("Set 'STACK_EXCHANGE_CLIENT_ID' env variable to obtain the authorization URL")
+        return None
+
     redirect_uri = 'https://stackexchange.com/oauth/login_success'
     scope = 'no_expiry'
 
@@ -22,8 +26,12 @@ def get_authorization_url():
 
 def get_user_details():
     site = 'stackoverflow.com'
-    key = os.environ['STACK_EXCHANGE_KEY']
-    access_token = os.environ['STACK_EXCHANGE_ACCESS_TOKEN']
+    key = os.environ.get('STACK_EXCHANGE_KEY')
+    access_token = os.environ.get('STACK_EXCHANGE_ACCESS_TOKEN')
+    if None in (key, access_token):
+        logging.warning("Set 'STACK_EXCHANGE_KEY' and 'STACK_EXCHANGE_ACCESS_TOKEN' env variables to retrieve user "
+                        "details")
+        return None
 
     profile_page_api = 'https://api.stackexchange.com/2.2/me'
     url = profile_page_api + '?' + 'site=' + site + '&key=' + key + '&access_token=' + access_token
@@ -43,8 +51,10 @@ def have_logged_in(delta_hours):
     :return: <bool> True if the user have logged in the last delta_hours, False otherwise
     """
     user_details = get_user_details()
-    last_access_date_timestamp = user_details['items'][0]['last_access_date']
+    if user_details is None:
+        return None
 
+    last_access_date_timestamp = user_details['items'][0]['last_access_date']
     last_access_date = datetime.fromtimestamp(last_access_date_timestamp)
 
     now = datetime.now()
@@ -52,4 +62,4 @@ def have_logged_in(delta_hours):
 
 
 if __name__ == "__main__":
-    get_user_details()
+    get_authorization_url()
