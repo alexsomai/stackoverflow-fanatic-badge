@@ -4,10 +4,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 import sendgrid_helper
+import logging
 
 
 def login():
-    print("Logging into stackoverflow.com")
+    # Set basicconfig to log events of relatively low severity level (Info) to higher severity level (Error)
+    logging.basicConfig(level=logging.INFO)
+    logging.info("Logging into stackoverflow.com")
 
     chrome_options = Options()
     chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_SHIM')
@@ -26,11 +29,12 @@ def login():
 
         elem = driver.find_element_by_class_name("mini-avatar")
         assert os.environ['STACK_OVERFLOW_DISPLAY_NAME'] in elem.text
+        logging.info("Logged into stackoverflow.com and accessed profile page. ")
         print("Logged into stackoverflow.com and accessed profile page")
 
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"
-        print(message, e)
+        logging.error(message, e)
         sendgrid_helper.send_mail("Error at login!", message + str(e))
 
     finally:
