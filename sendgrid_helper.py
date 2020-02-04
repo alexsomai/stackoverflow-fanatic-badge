@@ -1,6 +1,7 @@
 import sendgrid
 import os
 from sendgrid.helpers.mail import *
+import logging
 
 
 def send_mail(subject, content):
@@ -10,6 +11,8 @@ def send_mail(subject, content):
     content = Content("text/plain", content)
     body = Mail(from_email, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=body.get())
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
+    # Replaced print methods with relevant logging methods (logging.info)
+    logging.basicConfig(level=logging.INFO)
+    logging.info(response.status_code)
+    logging.info(response.body)
+    logging.info(response.headers)

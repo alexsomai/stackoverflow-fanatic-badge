@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from pprint import pprint
 
 import requests
+import logging
 from requests_oauthlib import OAuth2Session
 
 
@@ -14,7 +15,8 @@ def get_authorization_url():
     oauth = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
     authorization_url, state = oauth.authorization_url('https://stackexchange.com/oauth/dialog')
 
-    print("Access the following URL to obtain the access token:", authorization_url)
+    logging.basicConfig(level=logging.INFO)
+    logging.info("Access the following URL to obtain the access token: ", authorization_url)
     return authorization_url
 
 
