@@ -19,8 +19,7 @@ def access_stack_overflow_api():
     if stack_exchange_api.have_logged_in(12) is False:
         message = "You haven't logged in for at least " + str(delta_hours) + " hours! \n " + \
                   "Access stackoverflow.com to save your login streak"
-        logging.basicConfig(level=logging.ERROR)
-        logging.error("ERROR!\n" + message)
+        logging.error(message)
         sendgrid_helper.send_mail("Login overdue alert!", message)
 
 
