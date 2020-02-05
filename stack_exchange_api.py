@@ -16,7 +16,7 @@ def get_authorization_url():
     authorization_url, state = oauth.authorization_url('https://stackexchange.com/oauth/dialog')
 
     logging.basicConfig(level=logging.INFO)
-    logging.info("Access the following URL to obtain the access token: ", authorization_url)
+    logging.info("Access the following URL to obtain the access token: %s", authorization_url)
     return authorization_url
 
 
