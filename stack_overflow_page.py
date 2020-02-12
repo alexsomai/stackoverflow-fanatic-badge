@@ -38,7 +38,7 @@ def login():
 
         elem = driver.find_element_by_class_name("mini-avatar")
         assert display_name in elem.text
-        logging.info("Logged into stackoverflow.com and accessed profile page. ")
+        logging.info("Logged into stackoverflow.com and accessed profile page.")
 
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"

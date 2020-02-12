@@ -1,7 +1,7 @@
 import logging
 import os
 from datetime import datetime, timedelta
-from pprint import pprint
+from pprint import pformat
 
 import requests
 from requests_oauthlib import OAuth2Session
@@ -13,19 +13,16 @@ def get_authorization_url():
         logging.warning("Set 'STACK_EXCHANGE_CLIENT_ID' env variable to obtain the authorization URL")
         return None
 
-    redirect_uri = 'https://stackexchange.com/oauth/login_success'
-    scope = 'no_expiry'
-
-    oauth = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=scope)
+    oauth = OAuth2Session(client_id, redirect_uri='https://stackexchange.com/oauth/login_success', scope='no_expiry')
     authorization_url, state = oauth.authorization_url('https://stackexchange.com/oauth/dialog')
 
     logging.basicConfig(level=logging.INFO)
     logging.info("Access the following URL to obtain the access token: %s", authorization_url)
+
     return authorization_url
 
 
 def get_user_details():
-    site = 'stackoverflow.com'
     key = os.environ.get('STACK_EXCHANGE_KEY')
     access_token = os.environ.get('STACK_EXCHANGE_ACCESS_TOKEN')
     if None in (key, access_token):
@@ -34,13 +31,14 @@ def get_user_details():
         return None
 
     profile_page_api = 'https://api.stackexchange.com/2.2/me'
-    url = profile_page_api + '?' + 'site=' + site + '&key=' + key + '&access_token=' + access_token
+    site = 'stackoverflow.com'
 
-    response = requests.get(url)
-    json = response.json()
-    pprint(json)
+    response = requests.get(profile_page_api, params={'site': site, 'key': key, 'access_token': access_token})
+    json_response = response.json()
 
-    return json
+    logging.debug(pformat(json_response))
+
+    return json_response
 
 
 def have_logged_in(delta_hours):
@@ -56,8 +54,8 @@ def have_logged_in(delta_hours):
 
     last_access_date_timestamp = user_details['items'][0]['last_access_date']
     last_access_date = datetime.fromtimestamp(last_access_date_timestamp)
-
     now = datetime.now()
+
     return last_access_date > now - timedelta(hours=delta_hours)
 
 
