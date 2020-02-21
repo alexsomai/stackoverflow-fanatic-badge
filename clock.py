@@ -1,4 +1,5 @@
 import logging
+import logging.config
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -6,6 +7,7 @@ import stack_exchange_api
 import stack_overflow_page
 from sendgrid_helper import send_mail
 
+logging.config.fileConfig('logging.conf')
 schedule = BlockingScheduler()
 
 

@@ -1,10 +1,13 @@
 import logging
+import logging.config
 import os
 from datetime import datetime, timedelta
 from pprint import pformat
 
 import requests
 from requests_oauthlib import OAuth2Session
+
+logging.config.fileConfig('logging.conf')
 
 
 def get_authorization_url():
@@ -16,7 +19,6 @@ def get_authorization_url():
     oauth = OAuth2Session(client_id, redirect_uri='https://stackexchange.com/oauth/login_success', scope='no_expiry')
     authorization_url, state = oauth.authorization_url('https://stackexchange.com/oauth/dialog')
 
-    logging.basicConfig(level=logging.INFO)
     logging.info("Access the following URL to obtain the access token: %s", authorization_url)
 
     return authorization_url

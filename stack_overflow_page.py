@@ -1,4 +1,5 @@
 import logging
+import logging.config
 import os
 
 from selenium import webdriver
@@ -6,10 +7,10 @@ from selenium.webdriver.chrome.options import Options
 
 from sendgrid_helper import send_mail
 
+logging.config.fileConfig('logging.conf')
+
 
 def login():
-    # Set basicconfig to log events of relatively low severity level (Info) to higher severity level (Error)
-    logging.basicConfig(level=logging.INFO)
     logging.info("Logging into stackoverflow.com")
 
     email = os.environ.get('STACK_OVERFLOW_EMAIL')
