@@ -43,8 +43,6 @@ def login():
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"
         logging.error(message, e)
-        logging.error("Opening PDB to debug error")
-        import pdb; pdb.set_trace()
         send_mail("Error at login!", message + str(e))
 
     finally:

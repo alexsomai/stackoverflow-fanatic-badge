@@ -29,11 +29,11 @@ Alternatively, you can follow the (less detailed) quick start below.
 
     - WARNING: don't push this to a public repository!
 
-    - If you want to be notified by email when things go wrong, [sign up for sendgrid](https://signup.sendgrid.com/) to get an API key, and add that to `env_vars.txt` as well. This can take some work to set up successfully  .
-
 3. Run `source env_vars.txt` and then `python3 stack_overflow_page.py` to see the script work.
 
-To schedule the script locally, you can run `python3 clock.py`. To schedule it using Heroku, see the full guide on Medium.
+4. If you want to be notified by email when things go wrong, [sign up for sendgrid](https://signup.sendgrid.com/) to get an API key, and add that to `env_vars.txt` as well. This can take some work to set up successfully.
+
+5. To schedule the script on Heroku, sign up for an account on Heroku and follow the instructions in the full step-by-step guide on Medium.
 
 ## Troubleshooting
 
