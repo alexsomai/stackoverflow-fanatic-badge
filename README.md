@@ -19,16 +19,26 @@ Alternatively, you can follow the (less detailed) quick start below.
 
 1. Make sure you have the following dependencies:
 
-  - Python 3.6+ (along with pip)
+    - Python 3.6+ (along with pip)
 
-  - Chrome installed (or another browser of choice, though you will have to edit the script)
+    - Chrome installed (or another browser of choice, though you will have to edit the script)
 
-  - Python packages (use `pip install` to get): `selenium`, `sendgrid`, `webdriver_manager`, `requests_oauthlib`, `apscheduler`
+    - Python packages (use `pip install` to get): `selenium`, `sendgrid`, `webdriver_manager`, `requests_oauthlib`, `apscheduler`, `requests`, `python_http_client`
 
-2. Edit `env_vars.txt` to include your email, password, and display name.
+2. Edit `env_vars.txt` to include your email, password, and display name (and remove `#` to comment out the lines).
 
-3. Run `source env_vars.txt` and then `python3 stack_overflow_page.py`.
+    - WARNING: don't push this to a public repository!
+
+    - If you want to be notified by email when things go wrong, [sign up for sendgrid](https://signup.sendgrid.com/) to get an API key, and add that to `env_vars.txt` as well. This can take some work to set up successfully  .
+
+3. Run `source env_vars.txt` and then `python3 stack_overflow_page.py` to see the script work.
+
+To schedule the script locally, you can run `python3 clock.py`. To schedule it using Heroku, see the full guide on Medium.
 
 ## Troubleshooting
 
 The script can trigger a CAPTCHA from StackOverflow. A human has to resolve this.
+
+StackOverflow sometimes changes their UI, so that the old CSS identifiers don't match anymore. This can cause one of lines in `stack_overflow_page.py` starting with `driver.find_element_by_` to fail. To debug this in Chrome, look for the correct identifier to use instead using the "inspect element" feature in developer tools (Ctrl+Shift+C).
+
+Emails sent by sendgrid can go to spam. If you get errors when sending mail with sendgrid, make sure that you have an account which includes an API key, a verified email address, and that you have set up a verified sender to send mail. Note that sendgrid requires the dependency `python-http-client`.

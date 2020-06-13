@@ -1,3 +1,4 @@
-export STACK_OVERFLOW_EMAIL='your.email@example.com'
-export STACK_OVERFLOW_PASSWORD='your.password'
-export STACK_OVERFLOW_DISPLAY_NAME='your.display.name'
+# export STACK_OVERFLOW_EMAIL='your.email@example.com'
+# export STACK_OVERFLOW_PASSWORD='your.password'
+# export STACK_OVERFLOW_DISPLAY_NAME='your.display.name'
+# export SENDGRID_API_KEY='your.api.key'
