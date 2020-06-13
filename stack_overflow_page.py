@@ -4,6 +4,7 @@ import os
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 from sendgrid_helper import send_mail
 
@@ -22,9 +23,7 @@ def login():
                       "variables to successfully log into Stack Overflow")
         return
 
-    chrome_options = Options()
-    chrome_options.binary_location = os.environ.get('GOOGLE_CHROME_SHIM')
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(ChromeDriverManager().install())
 
     try:
         driver.get("https://stackoverflow.com")
@@ -37,13 +36,15 @@ def login():
 
         driver.find_element_by_class_name("my-profile").click()
 
-        elem = driver.find_element_by_class_name("mini-avatar")
+        elem = driver.find_element_by_class_name("grid--cell.ws-nowrap.fs-body3")
         assert display_name in elem.text
         logging.info("Logged into stackoverflow.com and accessed profile page.")
 
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"
         logging.error(message, e)
+        logging.error("Opening PDB to debug error")
+        import pdb; pdb.set_trace()
         send_mail("Error at login!", message + str(e))
 
     finally:
