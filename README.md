@@ -33,7 +33,27 @@ Alternatively, you can follow the (less detailed) quick start below.
 
 4. If you want to be notified by email when things go wrong, [sign up for sendgrid](https://signup.sendgrid.com/) to get an API key, and add that to `env_vars.txt` as well. This can take some work to set up successfully.
 
-5. To schedule the script on Heroku, sign up for an account on Heroku and follow the instructions in the full step-by-step guide on Medium.
+5. To schedule the script on Heroku, sign up for an account on Heroku and follow the instructions in the full step-by-step guide on Medium. Or press the _Deploy to Heroku_ button below.
+
+## Deploy to Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/alexsomai/stackoverflow-fanatic-badge/tree/master)
+
+Once deployed, set the following Config Vars in Heroku app Settings:
+
+* **Mandatory** (basic login script variables):
+  * `STACK_OVERFLOW_EMAIL`
+  * `STACK_OVERFLOW_PASSWORD`
+  * `STACK_OVERFLOW_DISLAY_NAME`
+
+* **Optional**:
+  * Sendgrid, for sending email when things go wrong:
+    * `SENDGRID_API_KEY`
+  * Stack Exchange API, to get an email after a period of inactivity:    
+    * `STACK_EXCHANGE_CLIENT_ID`
+    * `STACK_EXCHANGE_KEY`
+    * `STACK_EXCHANGE_ACCESS_TOKEN`
+
 
 ## Troubleshooting
 

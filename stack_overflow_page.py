@@ -3,7 +3,9 @@ import logging.config
 import os
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 from sendgrid_helper import send_mail
@@ -36,7 +38,9 @@ def login():
 
         driver.find_element_by_class_name("my-profile").click()
 
-        elem = driver.find_element_by_class_name("grid--cell.ws-nowrap.fs-body3")
+        elem = WebDriverWait(driver, 5).until(
+            expected_conditions.presence_of_element_located((By.CLASS_NAME, "grid--cell.ws-nowrap.fs-body3"))
+        )
         assert display_name in elem.text
         logging.info("Logged into stackoverflow.com and accessed profile page.")
 
