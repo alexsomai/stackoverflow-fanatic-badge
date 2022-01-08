@@ -30,13 +30,13 @@ def login():
     try:
         driver.get("https://stackoverflow.com")
 
-        driver.find_element_by_link_text("Log in").click()
+        driver.find_element(By.LINK_TEXT, "Log in").click()
 
-        driver.find_element_by_id("email").send_keys(email)
-        driver.find_element_by_id("password").send_keys(password)
-        driver.find_element_by_id("submit-button").submit()
+        driver.find_element(By.ID, "email").send_keys(os.environ['STACK_OVERFLOW_EMAIL'])
+        driver.find_element(By.ID, "password").send_keys(os.environ['STACK_OVERFLOW_PASSWORD'])
+        driver.find_element(By.ID, "submit-button").submit()
 
-        driver.find_element_by_class_name("my-profile").click()
+        driver.find_element(By.CLASS_NAME, "my-profile").click()
 
         elem = WebDriverWait(driver, 5).until(
             expected_conditions.presence_of_element_located((By.CLASS_NAME, "grid--cell.ws-nowrap.fs-body3"))
