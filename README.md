@@ -7,6 +7,8 @@ A Python script deployed to Heroku that performs automatic logins on stackoverfl
 
 Moreover, you get notified, via email, if the script goes wrong and you haven’t logged into Stack Overflow for at least _twelve hours_.
 
+ℹ️ To count as a visit, besides the login, the script also accesses your profile page: https://meta.stackoverflow.com/a/298532.
+
 ## Step-by-step guide
 
 You may follow the step-by-step guide [here](https://medium.com/coders-do-read/earn-the-fanatic-badge-on-stack-overflow-828d2c46930).
