@@ -22,7 +22,7 @@ def login():
 
     if None in (email, password, display_name):
         logging.error("Set 'STACK_OVERFLOW_EMAIL' 'STACK_OVERFLOW_PASSWORD' 'STACK_OVERFLOW_DISPLAY_NAME' env "
-                      "variables to successfully log into Stack Overflow")
+                      "variables to successfully log into Stack Overflow for "+email+", "+display_name)
         return
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
