@@ -46,7 +46,7 @@ Once deployed, set the following Config Vars in Heroku app Settings:
 * **Mandatory** (basic login script variables):
   * `STACK_OVERFLOW_EMAIL`
   * `STACK_OVERFLOW_PASSWORD`
-  * `STACK_OVERFLOW_DISLAY_NAME`
+  * `STACK_OVERFLOW_DISPLAY_NAME`
 
 * **Optional**:
   * Sendgrid, for sending email when things go wrong:
