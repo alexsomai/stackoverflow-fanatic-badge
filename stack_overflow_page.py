@@ -1,14 +1,19 @@
+import os
+
+from dotenv import load_dotenv
+
 import logging
 import logging.config
-import os
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 from sendgrid_helper import send_mail
+
+load_dotenv()
 
 logging.config.fileConfig('logging.conf')
 
@@ -21,6 +26,7 @@ def login():
     display_name = os.environ.get('STACK_OVERFLOW_DISPLAY_NAME')
 
     if None in (email, password, display_name):
+        print(email, password, display_name)
         logging.error("Set 'STACK_OVERFLOW_EMAIL' 'STACK_OVERFLOW_PASSWORD' 'STACK_OVERFLOW_DISPLAY_NAME' env "
                       "variables to successfully log into Stack Overflow for "+email+", "+display_name)
         return
@@ -36,13 +42,13 @@ def login():
         driver.find_element(By.ID, "password").send_keys(password)
         driver.find_element(By.ID, "submit-button").submit()
 
-        driver.find_element(By.CLASS_NAME, "my-profile").click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, display_name).click()
 
         elem = WebDriverWait(driver, 5).until(
-            expected_conditions.presence_of_element_located((By.CLASS_NAME, "grid--cell.ws-nowrap.fs-body3"))
+            EC.presence_of_element_located((By.ID, "js-daily-access-calendar-container"))
         )
-        assert display_name in elem.text
-        logging.info("Logged into stackoverflow.com and accessed profile page.")
+        
+        logging.info("Logged into stackoverflow.com and accessed profile page - " + elem.text)
 
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"
