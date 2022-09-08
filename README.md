@@ -27,11 +27,11 @@ Alternatively, you can follow the (less detailed) quick start below.
 
     - Python packages (use `pip install` to get): `selenium`, `sendgrid`, `webdriver_manager`, `requests_oauthlib`, `apscheduler`, `requests`, `python_http_client`
 
-2. Edit `env_vars.txt` to include your email, password, and display name (and remove `#` to comment out the lines).
+2. Edit `.env` to include your email, password, and display name.
 
     - WARNING: don't push this to a public repository!
 
-3. Run `source env_vars.txt` and then `python3 stack_overflow_page.py` to see the script work.
+3. Run `python3 stack_overflow_page.py` to see the script work.
 
 4. If you want to be notified by email when things go wrong, [sign up for sendgrid](https://signup.sendgrid.com/) to get an API key, and add that to `env_vars.txt` as well. This can take some work to set up successfully.
 
