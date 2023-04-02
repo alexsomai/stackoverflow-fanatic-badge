@@ -1,2 +1,2 @@
-.idea/
-__pycache__
+final/env/*
+final/__pycache__/
