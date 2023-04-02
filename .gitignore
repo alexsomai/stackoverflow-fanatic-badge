@@ -1,2 +1,3 @@
 final/env/*
 final/__pycache__/
+final/.env
