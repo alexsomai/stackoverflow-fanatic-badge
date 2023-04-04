@@ -3,3 +3,4 @@ stackoverflow/__pycache__/
 stackoverflow/.env
 test
 prototype/.env
+prototype/env/

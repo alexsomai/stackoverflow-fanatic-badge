@@ -1,6 +1,5 @@
 import logging
 
-from telegram import __version__ as TG_VER
 from telegram import Update , KeyboardButton , ReplyKeyboardMarkup
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 from time import time

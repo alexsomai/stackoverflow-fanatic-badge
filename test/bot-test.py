@@ -1,9 +1,31 @@
+#!/usr/bin/env python
+# pylint: disable=unused-argument, wrong-import-position
+# This program is dedicated to the public domain under the CC0 license.
+
+"""
+Basic example for a bot that uses inline keyboards. For an in-depth explanation, check out
+ https://github.com/python-telegram-bot/python-telegram-bot/wiki/InlineKeyboard-Example.
+"""
 import logging
+import os
+
 
 from telegram import __version__ as TG_VER
-from telegram import Update , KeyboardButton , ReplyKeyboardMarkup
+
+try:
+    from telegram import __version_info__
+except ImportError:
+    __version_info__ = (0, 0, 0, 0, 0)  # type: ignore[assignment]
+
+if __version_info__ < (20, 0, 0, "alpha", 1):
+    raise RuntimeError(
+        f"This example is not compatible with your current PTB version {TG_VER}. To view the "
+        f"{TG_VER} version of this example, "
+        f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
+    )
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
-from time import time
+
 # Enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -13,16 +35,17 @@ logger = logging.getLogger(__name__)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Sends a message with three inline buttons attached."""
-    buttons = [[
-            KeyboardButton("Download") ,
-            KeyboardButton("Update") 
-        ]]
-    
-    print(update.message.chat_id)
-    print(update.effective_chat.id)
-    #time.sleep(5)
-    #rep = ReplyKeyboardMarkup(buttons)
-    await context.bot.send_message(chat_id = update.effective_chat.id , text = "nothing" , reply_markup = ReplyKeyboardMarkup(buttons))
+    keyboard = [
+        [
+            InlineKeyboardButton("Option 1", callback_data="1"),
+            InlineKeyboardButton("Option 2", callback_data="2"),
+        ],
+        [InlineKeyboardButton("Option 3", callback_data="3")],
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text("Please choose:", reply_markup=reply_markup)
 
 
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -44,7 +67,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 def main() -> None:
     """Run the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("6126644091:AAFSLvheJ6xZBMt5UJAFMqzst9ZsUau_s5U").build()
+    BOT_TOKEN = os.environ['BOT_TOKEN']
+    application = Application.builder().token(BOT_TOKEN).build()
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button))
